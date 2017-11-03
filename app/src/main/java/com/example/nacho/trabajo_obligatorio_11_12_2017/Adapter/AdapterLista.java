@@ -54,8 +54,8 @@ public class AdapterLista extends BaseAdapter {
         convertView=inflater.inflate(layoutData, null);
 
         TextView lblid = (TextView)convertView.findViewById(R.id.txtidTitle);
-        TextView lblNombre = (TextView)convertView.findViewById(R.id.lblName);
-        TextView lblprecio = (TextView)convertView.findViewById(R.id.lblprecio);
+        TextView lblNombre = (TextView)convertView.findViewById(R.id.lblNombre);
+        TextView lblprecio = (TextView)convertView.findViewById(R.id.lblPrecio);
 
         getId=Integer.toString(lista.get(position).getId());
         lblid.setText(getId);

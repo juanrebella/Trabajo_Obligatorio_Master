@@ -4,25 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group>
-        <item
-        android:id="@+id/carrito"
-        android:title="@string/comprar"
-        android:icon="@drawable/ic_carrito"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"/>
+            <item
+                android:id="@+id/carrito"
+                android:title="@string/comprar"
+                android:icon="@drawable/ic_carrito"
+                android:orderInCategory="100"
+                app:showAsAction="always"/>
 
         <item
             android:id="@+id/buscar"
             android:title="@string/buscar"
             android:icon="@drawable/ic_lupa"
             android:orderInCategory="100"
-            app:showAsAction="ifRoom|withText" />
-        <item
-            android:id="@+id/Login"
-            android:title="@string/login"
-            android:icon="@drawable/ic_login_web"
-            android:orderInCategory="100"
-            app:showAsAction="ifRoom|withText" />
+            app:showAsAction="always" />
 
     </group>
 </menu>

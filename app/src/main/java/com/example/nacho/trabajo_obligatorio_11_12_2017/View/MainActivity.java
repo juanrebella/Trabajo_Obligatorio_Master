@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
 
@@ -46,28 +51,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         //Inflamos el menú
-
-        lupaBuscar = (Button)findViewById(R.id.buscar);
-        carritoCompra = (Button)findViewById(R.id.carrito);
-        loginButton = (Button)findViewById(R.id.Login);
 
         getMenuInflater().inflate(R.menu.menu_icons, menu);
 
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //ABRIMOS EL DRAWER
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void setupNavigationDrawerContent( NavigationView navigationView){
         navigationView.setNavigationItemSelectedListener(

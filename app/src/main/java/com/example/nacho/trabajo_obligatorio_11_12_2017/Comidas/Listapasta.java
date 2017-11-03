@@ -68,7 +68,6 @@ public class Listapasta extends AppCompatActivity {
 
         lupaBuscar = (Button)findViewById(R.id.buscar);
         carritoCompra = (Button)findViewById(R.id.carrito);
-        loginButton = (Button)findViewById(R.id.Login);
 
         getMenuInflater().inflate(R.menu.menu_icons, menu);
 

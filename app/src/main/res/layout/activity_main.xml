@@ -26,9 +26,7 @@
             android:background="?colorPrimaryDark"/>
     </LinearLayout>
 
-
-
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/llmenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,12 +37,21 @@
             android:id="@+id/lstMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="45dp"
             android:padding="5dp">
-
         </ListView>
 
-    </LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ToolbarTheme" />
+
+    </FrameLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
