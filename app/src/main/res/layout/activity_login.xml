@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_registro"
+    tools:context="com.example.nacho.trabajo_obligatorio_11_12_2017.View.MainActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+        
+        <LinearLayout
+            android:id="@+id/ltsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:src="@drawable/restaurant"
+                    android:layout_gravity="center"
+                    />
+
+                <EditText
+                    android:id="@+id/edtNombre"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/nombre"
+                    android:layout_gravity="center"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtApellido"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/app_surname"
+                    android:layout_gravity="center"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/email"
+                    android:layout_gravity="center"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtPass"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+                    android:hint="@string/password"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnIngresar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Ingresar" />
+
+
+         </LinearLayout>
+    </ScrollView>
+</LinearLayout>

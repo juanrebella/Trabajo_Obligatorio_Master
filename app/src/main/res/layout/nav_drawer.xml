@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:id="@+id/item_navigation_drawer_inbox"
+            android:icon="@drawable/ic_inbox_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/item_navigation_drawer_starred"
+            android:icon="@drawable/ic_action_toggle_star"
+            android:title="Listado" />
+        <item
+            android:id="@+id/item_navigation_drawer_sent_mail"
+            android:icon="@drawable/ic_action_content_send"
+            android:title="Sent mailEnviar Email" />
+        <item
+            android:id="@+id/item_navigation_drawer_drafts"
+            android:icon="@drawable/ic_action_content_drafts"
+            android:title="Drafts" />
+    </group>
+
+    <item android:title="Subheader">
+        <menu>
+            <item
+                android:id="@+id/item_navigation_drawer_settings"
+                android:icon="@drawable/ic_action_content_mail"
+                android:title="Configuracion" />
+            <item
+                android:id="@+id/item_navigation_drawer_help_and_feedback"
+                android:icon="@drawable/ic_action_action_delete"
+                android:title="Ayuda" />
+        </menu>
+    </item>
+</menu>
