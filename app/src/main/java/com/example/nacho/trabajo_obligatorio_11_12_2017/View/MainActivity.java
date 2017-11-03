@@ -66,11 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 //ABRIMOS EL DRAWER
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-
+            /*
             case R.id.buscar:
                 //Abrimos el carrito de compras.
                 Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
+
+                AGREGARLE LANDING PAGE Y FILTRAR LAS BUSQUEDAS
+                (WEBSERVICES) DE MANERA DINÁMICA
+                */
         }
         return super.onOptionsItemSelected(item);
     }
@@ -88,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                             case R.id.item_navigation_drawer_minutas:
-
-
 
                                 return true;
 
