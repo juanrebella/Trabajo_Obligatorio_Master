@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Comidas.Listapasta;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
@@ -67,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 //ABRIMOS EL DRAWER
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+
+            case R.id.buscar:
+                //Abrimos el carrito de compras.
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -82,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.item_navigation_drawer_pasta:
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
-                                Intent intent= new Intent(getApplicationContext(), Listapasta.class);
-                                startActivity(intent);
-                                return true;
 
                             case R.id.item_navigation_drawer_minutas:
 
