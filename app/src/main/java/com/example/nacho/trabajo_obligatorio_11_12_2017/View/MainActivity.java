@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         /*- iniciamos servicio -*/
 
         service = new HttpConnection();
-        new ListadoOfertas.execute();
+        new ListadoOfertas.excecute();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
