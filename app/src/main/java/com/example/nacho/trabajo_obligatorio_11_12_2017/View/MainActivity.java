@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 //ABRIMOS EL DRAWER
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            /*
+
             case R.id.buscar:
                 //Abrimos el carrito de compras.
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(MainActivity.this, Search.class);
                 startActivity(intent);
 
+                /*
                 AGREGARLE LANDING PAGE Y FILTRAR LAS BUSQUEDAS
                 (WEBSERVICES) DE MANERA DINÁMICA
                 */
