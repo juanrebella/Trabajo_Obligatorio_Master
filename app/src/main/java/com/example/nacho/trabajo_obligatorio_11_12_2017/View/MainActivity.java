@@ -1,6 +1,8 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,10 +18,38 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
+import org.json.JSONArray;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+         /*---Variables para AsyncTask-----*/
+
+    private ListView listViewData;
+    ProgressDialog progressDialog;
+
+    private String url = URL_Rest.urlListArticulos;
+
+    private JSONArray jsonArray;
+    private HttpConnection service;
+    private int status = 0;
+
+
+    AdapterLista adapter;
+    public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
+    private ListView lstMenu;
+
+
+            /*----------- Variables -------------*/
 
     Button lupaBuscar, carritoCompra, loginButton;
     ActionBar actionBar;
@@ -27,16 +57,26 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     Toolbar toolbar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*- Lista de ofertas -*/
+        lstMenu = (ListView)findViewById(R.id.lstMenu);
+
+        /*- iniciamos servicio -*/
+
+        service = new HttpConnection();
+        new ListadoOfertas.execute();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburguer);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
@@ -47,6 +87,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(navigationView);
+    }
+
+    public class ListadoOfertas extends AsyncTask<Void, Void, JSONArray>{
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONArray doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+        }
     }
 
     @Override
@@ -66,15 +125,12 @@ public class MainActivity extends AppCompatActivity {
                 //ABRIMOS EL DRAWER
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
-            /*
+
             case R.id.buscar:
-                //Abrimos el carrito de compras.
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                //Abrimos el buscador
+                Intent intent = new Intent(MainActivity.this, Search.class);
                 startActivity(intent);
 
-                AGREGARLE LANDING PAGE Y FILTRAR LAS BUSQUEDAS
-                (WEBSERVICES) DE MANERA DINÁMICA
-                */
         }
         return super.onOptionsItemSelected(item);
     }

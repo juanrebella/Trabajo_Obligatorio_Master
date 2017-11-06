@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Restaurant Carcare</string>
 
     /* Login */
     <string name="nombre">Nombre</string>
@@ -22,18 +22,15 @@
 
 
     /* Subheader del Nav Drawer */
-    <string name="subheader">Sub-Header</string>
+    <string name="subheader">Configuraciones</string>
     <string name="registrarse">Registrarse</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="salir">Salir</string>
     <string name="login">Login</string>
 
-    /* Descripción de la comida si se hace clic en el listView de la principal */
-    <string name="listapasta">  El tuco es una salsa preparada con tomate y carne muy
-                                tradicional en los almuerzos de algunos países de
-                                Sudamérica como Uruguay, Argentina, Chile y Perú. Junto a nuestra pasta casera se conjugan
-                                los mejores sabores que nos describen como cocineros!</string>
-
+   /* Search */
+    <string name="busqueda_search">¿Qué desea buscar?</string>
+    <string name="consulta_search">Ingrese su consulta</string>
 
 
 </resources>
