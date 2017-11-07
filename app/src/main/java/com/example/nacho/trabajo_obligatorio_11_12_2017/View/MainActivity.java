@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         /*- iniciamos servicio -*/
 
         service = new HttpConnection();
-        new ListadoOfertas.execute();
+        new ListadoMenu().execute();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
         setupNavigationDrawerContent(navigationView);
     }
 
-    public class ListadoOfertas extends AsyncTask<Void, Void, JSONArray>{
+    public class ListadoMenu extends AsyncTask<Void, Void, JSONArray>{
 
 
         @Override
         protected void onPreExecute() {
+
+
             super.onPreExecute();
         }
 
