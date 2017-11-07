@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
             }
         });
 
-    };
+    }
 
 
     /*----------- Validaciones -----------*/

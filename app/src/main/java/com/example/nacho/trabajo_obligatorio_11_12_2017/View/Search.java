@@ -45,7 +45,7 @@ public class Search extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.hamburguer);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburguesa);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);

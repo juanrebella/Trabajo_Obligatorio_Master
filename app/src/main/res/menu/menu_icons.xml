@@ -14,7 +14,7 @@
         <item
             android:id="@+id/buscar"
             android:title="@string/buscar"
-            android:icon="@drawable/ic_lupa"
+            android:icon="@drawable/ic_lupa_web"
             android:orderInCategory="100"
             app:showAsAction="always" />
 

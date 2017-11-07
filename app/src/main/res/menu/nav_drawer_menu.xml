@@ -10,23 +10,23 @@
         <item
             android:checked="true"
             android:id="@+id/item_navigation_drawer_pasta"
-            android:icon="@drawable/ic_inbox_black_24dp"
+            android:icon="@drawable/ic_flecha"
             android:title="@string/pastas" />
         <item
             android:id="@+id/item_navigation_drawer_minutas"
-            android:icon="@drawable/ic_action_toggle_star"
+            android:icon="@drawable/ic_flecha"
             android:title="@string/minutas" />
         <item
             android:id="@+id/item_navigation_drawer_ensaladas"
-            android:icon="@drawable/ic_action_content_send"
+            android:icon="@drawable/ic_flecha"
             android:title="@string/ensaladas" />
         <item
             android:id="@+id/item_navigation_drawer_carneParrilla"
-            android:icon="@drawable/ic_action_content_drafts"
+            android:icon="@drawable/ic_flecha"
             android:title="@string/carne_y_parrilla" />
         <item
             android:id="@+id/item_navigation_drawer_mariscos"
-            android:icon="@drawable/ic_action_content_drafts"
+            android:icon="@drawable/ic_flecha"
             android:title="@string/del_mar" />
     </group>
 
@@ -38,11 +38,11 @@
                 android:title="@string/registrarse" />
             <item
                 android:id="@+id/item_navigation_drawer_sesion"
-                android:icon="@drawable/ic_action_action_delete"
+                android:icon="@drawable/ic_init_session_web"
                 android:title="@string/iniciar_sesion" />
             <item
                 android:id="@+id/item_navigation_drawer_salir"
-                android:icon="@drawable/ic_action_action_delete"
+                android:icon="@drawable/ic_sign_out"
                 android:title="@string/salir" />
         </menu>
     </item>
