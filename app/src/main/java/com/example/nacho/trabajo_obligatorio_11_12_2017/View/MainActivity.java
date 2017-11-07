@@ -26,7 +26,10 @@ import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -92,21 +95,86 @@ public class MainActivity extends AppCompatActivity {
     public class ListadoMenu extends AsyncTask<Void, Void, JSONArray>{
 
 
+        String response = "";
+        HashMap<String, String> postDataParams;
+        //String urlparams = url + "title";
+
         @Override
         protected void onPreExecute() {
-
-
             super.onPreExecute();
+            progressDialog=new ProgressDialog(MainActivity.this);
+            progressDialog.setMessage("Buscando datos..");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
         }
 
+
+
         @Override
-        protected JSONArray doInBackground(Void... voids) {
-            return null;
+        protected JSONArray doInBackground(Void... params) {
+
+            postDataParams = new HashMap<String, String>();
+            try {
+                response = service.sendGet(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                JSONObject jsonResponse;
+                jsonResponse = new JSONObject(response);
+                status = jsonResponse.getInt("status");
+                jsonArray = jsonResponse.optJSONArray("response");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return jsonArray;
         }
 
         @Override
         protected void onPostExecute(JSONArray jsonArray) {
             super.onPostExecute(jsonArray);
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+                if (status == 200) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+
+                            Listadatos_ws objDatos = new Listadatos_ws();
+
+                            int id;
+                            String name;
+                            String precio;
+
+                            /* */
+
+                            JSONObject objet = jsonArray.getJSONObject(i);
+
+                            id = objet.getInt("id");
+                            name = objet.getString("name");
+                            precio = objet.getString("precio");
+
+                            objDatos.setId(id);
+                            objDatos.setNombre(name);
+                            objDatos.setPrecio(precio);
+
+                            lista.add(objDatos);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    adapter= new AdapterLista(MainActivity.this,lista,R.layout.item_lista_comida);
+                    lstMenu.setAdapter(adapter);
+
+                }
+
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Restaurant Carcare</string>
+    <string name="app_name">Il Carcare</string>
 
     /* Login */
     <string name="nombre">Nombre</string>
@@ -9,7 +9,7 @@
 
 
     /*Nav Bar*/
-    <string name="icon_nav_bar">Restaurant Carcare</string>
+    <string name="icon_nav_bar">Il Carcare</string>
     <string name="comprar">comprar</string>
     <string name="buscar">Buscar</string>
 

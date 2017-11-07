@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.Window;
 
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
