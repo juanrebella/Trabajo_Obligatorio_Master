@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Registro;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 import com.mobsandgeeks.saripaar.Validator;
 
@@ -89,38 +90,52 @@ public class Search extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.item_navigation_drawer_pasta:
+
+                                /*- Pasta -*/
+
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                             case R.id.item_navigation_drawer_minutas:
 
+                                /*- Minutas -*/
+
                                 return true;
 
                             case R.id.item_navigation_drawer_ensaladas:
+
+                                /*- Ensalada -*/
                                 menuItem.setChecked(true);
                                 textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
                             case R.id.item_navigation_drawer_carneParrilla:
+                                /*- Parrilla -*/
+
                                 menuItem.setChecked(true);
                                 textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
                             case R.id.item_navigation_drawer_mariscos:
+
+                                /*- Mariscos -*/
+
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                Toast.makeText(Search.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+
+                                Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
-                            case R.id.item_navigation_drawer_settings:
+                            case R.id.item_navigation_drawer_registrarse:
 
-                                /*- Settings -*/
+                                /*- Registrarse -*/
 
                                 menuItem.setChecked(true);
-                                Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(Search.this, Registro.class);
+                                startActivity(intent);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                                 return true;

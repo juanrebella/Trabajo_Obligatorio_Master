@@ -28,9 +28,11 @@
     <string name="salir">Salir</string>
     <string name="login">Login</string>
 
-   /* Search */
+    /* Search */
     <string name="busqueda_search">¿Qué desea buscar?</string>
     <string name="consulta_search">Ingrese su consulta</string>
+    <string name="inicio_sesion_en_registro">¿Ya está registrado?</string>
+    <string name="log_in">Ingresar</string>
 
 
 </resources>

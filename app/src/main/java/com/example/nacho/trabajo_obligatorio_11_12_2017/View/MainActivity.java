@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Registro;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
@@ -214,39 +215,53 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.item_navigation_drawer_pasta:
+
+                                /*- Pasta -*/
+
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                             case R.id.item_navigation_drawer_minutas:
 
+                                /*- Minutas -*/
+
                                 return true;
 
                             case R.id.item_navigation_drawer_ensaladas:
+
+                                /*- Ensalada -*/
                                 menuItem.setChecked(true);
                                 textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
                             case R.id.item_navigation_drawer_carneParrilla:
+                                /*- Parrilla -*/
+
                                 menuItem.setChecked(true);
                                 textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
                             case R.id.item_navigation_drawer_mariscos:
+
+                                /*- Mariscos -*/
+
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                Toast.makeText(MainActivity.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
-                            case R.id.item_navigation_drawer_settings:
+                            case R.id.item_navigation_drawer_registrarse:
 
-                                /*- Settings -*/
+                                /*- Registrarse -*/
 
                                 menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intent = new Intent(MainActivity.this, Registro.class);
+                                startActivity(intent);
 
                                 return true;
 
@@ -257,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
                                 /*- iniciar sesión -*/
 
                                 Intent intentSesion = new Intent(MainActivity.this, Login.class);
-                                finish();
                                 startActivity(intentSesion);
                                 return true;
 

@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
     Validator validator;
 
     @NotEmpty (message="Campo Requerido")
-    private EditText nombre, apellido, email, contraseña;
+    private EditText email, contraseña;
 
     private Button btnLog;
     private ScrollView mScrollView;
@@ -40,11 +40,11 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
 
         mScrollView = (ScrollView) findViewById(R.id.scrollView);
         ltsContainer=(LinearLayout)findViewById(R.id.ltsContainer);
-        nombre = (EditText)findViewById(R.id.edtNombre);
-        apellido = (EditText)findViewById(R.id.edtApellido);
         email = (EditText)findViewById(R.id.edtEmail);
         contraseña = (EditText)findViewById(R.id.edtPass);
         btnLog = (Button)findViewById(R.id.btnIngresar);
+
+
 
 
         btnLog.setOnClickListener(new View.OnClickListener() {

@@ -9,11 +9,6 @@
     android:background="@drawable/background_registro"
     tools:context="com.example.nacho.trabajo_obligatorio_11_12_2017.View.MainActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
         
         <LinearLayout
             android:id="@+id/ltsContainer"
@@ -29,23 +24,21 @@
                     android:layout_gravity="center"
                     />
 
-                <EditText
-                    android:id="@+id/edtNombre"
-                    android:layout_width="300dp"
+                <TextView
+                    android:id="@+id/logTitle"
+                    android:layout_width="194dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/nombre"
+                    android:text="LOGIN"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/md_black_1000"
+                    android:layout_marginTop="18dp"
                     android:layout_gravity="center"
-                    android:textSize="20sp" />
+                    android:padding="15dp"
+                    android:background="@color/md_blue_300"
+                    />
 
-                <EditText
-                    android:id="@+id/edtApellido"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/app_surname"
-                    android:layout_gravity="center"
-                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/edtEmail"
@@ -71,9 +64,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:text="Ingresar" />
+                    android:text="@string/log_in" />
+
 
 
          </LinearLayout>
-    </ScrollView>
 </LinearLayout>

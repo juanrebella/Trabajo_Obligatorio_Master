@@ -33,7 +33,7 @@
     <item android:title="@string/subheader">
         <menu>
             <item
-                android:id="@+id/item_navigation_drawer_settings"
+                android:id="@+id/item_navigation_drawer_registrarse"
                 android:icon="@drawable/ic_action_content_mail"
                 android:title="@string/registrarse" />
             <item
