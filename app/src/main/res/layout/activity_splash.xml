@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/restaurant_app"
+    android:background="@drawable/splash_il_carcare"
     tools:context="com.example.nacho.trabajo_obligatorio_11_12_2017.View.Splash">
 
 </RelativeLayout>
