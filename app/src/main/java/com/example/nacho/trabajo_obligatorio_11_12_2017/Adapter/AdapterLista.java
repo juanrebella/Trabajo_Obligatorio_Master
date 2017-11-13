@@ -1,10 +1,12 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter;
 
 import android.app.Activity;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;

@@ -11,6 +11,7 @@ public class Listadatos_ws {
     private  String precio;
 
 
+
     public int getId() {
         return id;
     }

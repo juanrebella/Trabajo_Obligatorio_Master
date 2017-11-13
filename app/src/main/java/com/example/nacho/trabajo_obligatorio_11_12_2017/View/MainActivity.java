@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private HttpConnection service;
     private int status = 0;
 
+
+    /*-- Variables traidas del adaptador ---*/
 
     AdapterLista adapter;
     public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
