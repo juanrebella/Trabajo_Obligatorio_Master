@@ -10,8 +10,21 @@ public class URL_Rest {
         public static final  String urlApi ="http://45.55.202.30/api/web/";
 
 
-        /*----------metodos ------------*/
+        /*----------métodos ------------*/
         public static final String urlListArticulos = urlApi + "listadoArticulos";
         public static final String urlInsertArticulo = urlApi + "insertarArticulos";
+
+        public static final String urlLogin = urlApi + "login";
+        public static final String urlRegistrarUsuario = urlApi + "registrarUsuarios";
+
+        /*--- Imágenes ------*/
+
+        public static  final String urlImage ="http://45.55.202.30/upload/productos/";
+
+
+
+
+
+
     }
 

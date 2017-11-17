@@ -33,6 +33,7 @@
     <string name="consulta_search">Ingrese su consulta</string>
     <string name="inicio_sesion_en_registro">¿Ya está registrado?</string>
     <string name="log_in">Ingresar</string>
+    <string name="RepPassword">Repetir contraseña</string>
 
 
 </resources>

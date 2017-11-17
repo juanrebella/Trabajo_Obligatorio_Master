@@ -1,6 +1,9 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.Controller;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,85 +16,175 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.RequestQueue;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
-public class Registro extends AppCompatActivity implements Validator.ValidationListener {
+public class  Registro extends AppCompatActivity {
 
-    Validator validator;
 
-    @NotEmpty(message = "Campo Requerido")
-    EditText nombre, apellido, email, contraseña;
+    private ProgressDialog progresDialog;
+    private JSONObject json;
+    private HttpConnection service;
+    private String url = URL_Rest.urlRegistrarUsuario;
+    private int status = 0;
+    private String request;
+    RequestQueue mRequestQueque;
+    ProgressDialog progressDialog;
+
+
+    EditText txtNombre, txtApellido,txtEmail, txtContraseña,txtRepeContraseña;
+    String nombre, email,apellido,  password, repePass;
     TextView yaEstaLog;
 
-    Button btnLog;
+    Button btnRegistrar;
     LinearLayout ltsContainer;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        Validator validar = new Validator(this);
-        validar.setValidationListener(this);
 
         ltsContainer = (LinearLayout) findViewById(R.id.ltsContainer);
-        nombre = (EditText) findViewById(R.id.edtNombre);
-        apellido = (EditText) findViewById(R.id.edtApellido);
-        email = (EditText) findViewById(R.id.edtEmail);
-        contraseña = (EditText) findViewById(R.id.edtPass);
-        btnLog = (Button) findViewById(R.id.btnIngresar);
+        txtNombre = (EditText) findViewById(R.id.edtNombre);
+        txtApellido = (EditText) findViewById(R.id.edtApellido);
+        txtEmail = (EditText) findViewById(R.id.edtEmail);
+        txtContraseña = (EditText) findViewById(R.id.edtPass);
+        txtRepeContraseña = (EditText) findViewById(R.id.edtRepPass);
+        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
         yaEstaLog = (TextView)findViewById(R.id.iniSesionReg);
 
 
-        btnLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /* SE ha logueado con éxito*/
 
-                /* Traer los datos del webservice*/
-            }
-        });
-
-        yaEstaLog.setOnClickListener(new View.OnClickListener() {
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nombre = txtNombre.getText().toString();
+                apellido = txtApellido.getText().toString();
+                email = txtEmail.getText().toString();
+                password = txtContraseña.getText().toString();
+                repePass = txtRepeContraseña.getText().toString();
 
-                Intent intent = new Intent(Registro.this, Login.class);
-                finish();
-                startActivity(intent);
+                if(nombre.equals("") | apellido.equals("") | email.equals("") | password.equals("") | repePass.equals("")){
+                    Log.d("Error", "Validacion de datos");
+                }else{
+                    service = new HttpConnection();
+                    new DataPostRegistro().execute();
+                }
+
             }
         });
 
     }
 
+    public class DataPostRegistro extends AsyncTask<Void, Void, Void> {
+
+        String response = "";
+        HashMap<String, String> postDataParams;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progresDialog = new ProgressDialog(Registro.this);
+            progresDialog.setTitle("Procesando....");
+            progresDialog.setCancelable(false);
+            progresDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            postDataParams = new HashMap<String, String>();
+            postDataParams.put("name", nombre);
+            postDataParams.put("lastname", apellido);
+            postDataParams.put("email", email);
+            postDataParams.put("password", password);
+            postDataParams.put("repeatpassword", repePass);
+            response = service.ServerDataHeader(url, postDataParams);
+
+            try {
+                json = new JSONObject(response);
+                status = json.getInt("status");
+                request = json.getString("response");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
 
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
 
-    /*----------- Validaciones -----------*/
-    @Override
-    public void onValidationSucceeded() {
-        Log.d("Succeed", "Los datos fueron ingresados correctamente");
+            if (progresDialog.isShowing()) {
+                progresDialog.dismiss();
+                String resultdata = request;
 
-    }
+                response = "";
+                if (status == 200) {
+                    Toast.makeText(getApplicationContext(), resultdata, Toast.LENGTH_LONG).show();
+                    ClearEditText();
+                } else if (status == 900) {
+                    Toast.makeText(getApplicationContext(), resultdata, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), resultdata, Toast.LENGTH_LONG).show();
+                }
 
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-
-            // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
     }
+
+    private void ClearEditText(){
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtEmail.setText("");
+        txtContraseña.setText("");
+        txtRepeContraseña.setText("");
+
+    }
+
+
+
+    private void ProgresDialog() {
+        progressDialog = new ProgressDialog(Registro.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Procesando..");
+        progressDialog.setMessage("Un momento..");
+        progressDialog.show();
+    }
+
+    public void onPostExecuteLogin() {
+        progressDialog.dismiss();
+    }
+
+    private void showErrorMessage() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Registro.this);
+        dialogBuilder.setMessage("Las credenciales son incorrectas ");
+        dialogBuilder.setPositiveButton("OK", null);
+        dialogBuilder.show();
+    }
+
+    private void showMessage(final String message) {
+        AlertDialog.Builder dialogBuilderLogin = new AlertDialog.Builder(Registro.this);
+        dialogBuilderLogin.setMessage(message);
+        dialogBuilderLogin.setPositiveButton("OK", null);
+        dialogBuilderLogin.show();
+    }
+
 
 }

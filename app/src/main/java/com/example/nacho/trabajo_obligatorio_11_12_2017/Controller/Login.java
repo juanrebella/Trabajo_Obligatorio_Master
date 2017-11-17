@@ -1,5 +1,10 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.Controller;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,31 +17,48 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.VolleySingleton;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.View.MainActivity;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.View.Search;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Login extends AppCompatActivity implements Validator.ValidationListener{
+public class Login extends AppCompatActivity{
 
-    Validator validator;
-
-    @NotEmpty (message="Campo Requerido")
     private EditText email, contraseña;
 
     private Button btnLog;
     private ScrollView mScrollView;
     private LinearLayout ltsContainer;
 
+    RequestQueue mRequestQueque;
+    ProgressDialog progressDialog;
+
+    private String url = URL_Rest.urlLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Validator validar = new Validator(this);
-        validar.setValidationListener(this);
 
         mScrollView = (ScrollView) findViewById(R.id.scrollView);
         ltsContainer=(LinearLayout)findViewById(R.id.ltsContainer);
@@ -50,37 +72,118 @@ public class Login extends AppCompatActivity implements Validator.ValidationList
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* SE ha logueado con éxito*/
+               String userEmail = email.getText().toString();
+               String password = contraseña.getText().toString();
 
-                /* Traer los datos del webservice*/
+                if(userEmail.equals("") || password.equals("")){
+                    Log.d("Error", "Validacion de datos");
+                }else{
+                    authenticate(userEmail,password);
+                }
             }
         });
 
     }
 
+    private void authenticate(final String userEmail, final String password) {
 
-    /*----------- Validaciones -----------*/
-    @Override
-    public void onValidationSucceeded() {
-        Log.d("Succeed","Los datos fueron ingresados correctamente");
+        mRequestQueque = VolleySingleton.getInstance().getmRequestQueque();
+        ProgressDialog();
 
-    }
 
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
+        final StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                onPostExecuteLogin();
+                try {
+                    JSONObject mainObjet = new JSONObject(response);
+                    String token = mainObjet.getString("token");
+                    int userId = mainObjet.getInt("iduser");
+                    String success = mainObjet.getString("success");
+                    String name = mainObjet.getString("name");
 
-            // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+                    boolean loggedInShare = true;
+
+                    if (success.equals("success")) {
+                        SharedPreferences sharedPreferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("loggedIn", loggedInShare);
+                        editor.putString("token", token);
+                        editor.putInt("iduser", userId);
+                        editor.putString("nameUser",name);
+                        editor.commit();
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        finish();
+                        startActivity(intent);
+
+                    } else {
+                        String messag = "El usuario no se encuentra activado";
+                        showMessage(messag);
+                    }
+
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
             }
-        }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onPostExecuteLogin();
+                showErrorMessage();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("email", userEmail);
+                map.put("password", password);
+                return map;
+            }
+
+            @Override
+            public RetryPolicy getRetryPolicy() {
+                return new DefaultRetryPolicy(
+                        5000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                );
+            }
+        };
+
+        mRequestQueque.add(request);
 
     }
+
+
+    public void onPostExecuteLogin() {
+        progressDialog.dismiss();
+    }
+
+    private void ProgressDialog() {
+        progressDialog = new ProgressDialog(Login.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Procesando..");
+        progressDialog.setMessage("Un momento..");
+        progressDialog.show();
+    }
+
+    private void showErrorMessage() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Login.this);
+        dialogBuilder.setMessage("Las credenciales son incorrectas ");
+        dialogBuilder.setPositiveButton("OK", null);
+        dialogBuilder.show();
+    }
+
+    private void showMessage(final String message) {
+        AlertDialog.Builder dialogBuilderLogin = new AlertDialog.Builder(Login.this);
+        dialogBuilderLogin.setMessage(message);
+        dialogBuilderLogin.setPositiveButton("OK", null);
+        dialogBuilderLogin.show();
+    }
+
 
     /*-------- Scroll --------*/
 

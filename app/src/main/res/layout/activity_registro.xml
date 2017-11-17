@@ -14,7 +14,7 @@
             android:id="@+id/ltsContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <ImageView
@@ -24,6 +24,7 @@
                 android:src="@drawable/restaurant"
                 android:layout_gravity="center"
                 />
+
 
             <EditText
                 android:id="@+id/edtNombre"
@@ -61,12 +62,23 @@
                 android:hint="@string/password"
                 android:textSize="20sp" />
 
+            <EditText
+                android:id="@+id/edtRepPass"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:hint="@string/RepPassword"
+                android:textSize="20sp" />
+
+
+
             <Button
-                android:id="@+id/btnIngresar"
+                android:id="@+id/btnRegistrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:text="Registrarse" />
 
             <TextView
