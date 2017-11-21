@@ -63,6 +63,7 @@ public class  Registro extends AppCompatActivity {
 
 
 
+
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

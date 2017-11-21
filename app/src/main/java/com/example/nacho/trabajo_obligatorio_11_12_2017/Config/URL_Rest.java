@@ -13,6 +13,8 @@ public class URL_Rest {
         /*----------métodos ------------*/
         public static final String urlListArticulos = urlApi + "listadoArticulos";
         public static final String urlInsertArticulo = urlApi + "insertarArticulos";
+        public static final String urlupdate = urlApi + "actualizarArticulos";
+        public static final String urlEditPruducto = urlApi + "edit";
 
         public static final String urlLogin = urlApi + "login";
         public static final String urlRegistrarUsuario = urlApi + "registrarUsuarios";

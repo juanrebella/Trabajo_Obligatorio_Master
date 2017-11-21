@@ -66,12 +66,21 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
 
+        /*--- Nav Drawer -*/
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        if (navigationView != null) {
+            setupNavigationDrawerContent(navigationView);
+        }
+
+        setupNavigationDrawerContent(navigationView);
+
+
+
         mScrollView = (ScrollView) findViewById(R.id.scrollView);
         ltsContainer=(LinearLayout)findViewById(R.id.ltsContainer);
         email = (EditText)findViewById(R.id.edtEmail);
         contraseña = (EditText)findViewById(R.id.edtPass);
         btnLog = (Button)findViewById(R.id.btnIngresar);
-
 
 
 

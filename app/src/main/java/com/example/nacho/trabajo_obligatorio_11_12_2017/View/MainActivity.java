@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -97,6 +99,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(navigationView);
+
+
+        /*------On Click -----*/
+        lstMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemSelect= ((TextView)view.findViewById(R.id.txtidTitle)).getText().toString();
+                Intent intent= new Intent(MainActivity.this, Mostrar_Detalle_Imagen.class);
+                intent.putExtra("id", itemSelect);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public class ListadoMenu extends AsyncTask<Void, Void, JSONArray>{
