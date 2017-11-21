@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/md_amber_800"
-    tools:context="com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Registro">
+    tools:context="com.example.nacho.trabajo_obligatorio_11_12_2017.View.Registro">
 
 
         <LinearLayout

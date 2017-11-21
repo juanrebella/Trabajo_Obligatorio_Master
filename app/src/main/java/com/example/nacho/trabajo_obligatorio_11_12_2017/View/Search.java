@@ -1,6 +1,10 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,17 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Registro;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
-import com.mobsandgeeks.saripaar.Validator;
 
 public class Search extends AppCompatActivity {
 
@@ -154,15 +153,41 @@ public class Search extends AppCompatActivity {
                             case R.id.item_navigation_drawer_salir:
 
                                 /*- Logout y quemar el token del ws-*/
-                                menuItem.setChecked(true);
-                                Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
+                                Logout();
 
                         }
                         return true;
                     }
                 });
+    }
+
+    private void Logout() {
+        AlertDialog.Builder alertDialogLogout = new AlertDialog.Builder(this);
+        alertDialogLogout.setMessage("Desea salir de la aplicacion");
+        alertDialogLogout.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("loggedIn");
+                editor.remove("token");
+                editor.commit();
+                Intent intent = new Intent(Search.this, Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        alertDialogLogout.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogLogout.create();
+        alertDialog.show();
     }
 }
 

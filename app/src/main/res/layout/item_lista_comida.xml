@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:background="@color/md_orange_100"
     android:layout_width="match_parent"
+    android:paddingTop="5dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -13,11 +14,11 @@
         android:weightSum="10">
 
         <com.github.snowdream.android.widget.SmartImageView
-        android:id="@+id/imageproduct"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_weight="1"
-            android:paddingLeft="2dp"/>
+            android:id="@+id/imageproduct"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:paddingStart="2dp"/>
 
         <TextView
             android:id="@+id/lblNombre"

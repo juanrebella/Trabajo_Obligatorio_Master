@@ -16,17 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Login;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Controller.Registro;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;

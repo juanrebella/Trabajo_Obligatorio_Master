@@ -1,8 +1,7 @@
-package com.example.nacho.trabajo_obligatorio_11_12_2017.Controller;
+package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,15 +18,11 @@ import com.android.volley.RequestQueue;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class  Registro extends AppCompatActivity {
 
