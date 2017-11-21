@@ -22,9 +22,5 @@ public class URL_Rest {
         public static  final String urlImage ="http://45.55.202.30/upload/productos/";
 
 
-
-
-
-
     }
 

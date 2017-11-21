@@ -1,7 +1,11 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -64,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     Toolbar toolbar;
 
+    private String idUserDeveloper= "1";
+    private String idresturante = "1";
+
 
 
     @Override
@@ -118,11 +125,10 @@ public class MainActivity extends AppCompatActivity {
         protected JSONArray doInBackground(Void... params) {
 
             postDataParams = new HashMap<String, String>();
-            try {
-                response = service.sendGet(url);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            postDataParams.put("userId", idUserDeveloper);
+            postDataParams.put("typemeals", idresturante);
+
+            response = service.ServerDataHeader(url, postDataParams);
 
             try {
                 JSONObject jsonResponse;
@@ -152,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             int id;
                             String name;
                             String precio;
+                            String imagenes;
 
                             /* */
 
@@ -160,10 +167,12 @@ public class MainActivity extends AppCompatActivity {
                             id = objet.getInt("id");
                             name = objet.getString("name");
                             precio = objet.getString("precio");
+                            imagenes = objet.getString("nameImage");
 
                             objDatos.setId(id);
                             objDatos.setNombre(name);
                             objDatos.setPrecio(precio);
+                            objDatos.setImage(imagenes);
 
                             lista.add(objDatos);
 
@@ -282,13 +291,41 @@ public class MainActivity extends AppCompatActivity {
 
                                 /*- Logout y quemar el token del ws-*/
                                 menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
+                                Logout();
 
                         }
                         return true;
                     }
                 });
+    }
+
+
+    private void Logout() {
+        AlertDialog.Builder alertDialogLogout = new AlertDialog.Builder(this);
+        alertDialogLogout.setMessage("Desea salir de la aplicacion");
+        alertDialogLogout.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("loggedIn");
+                editor.remove("token");
+                editor.commit();
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        alertDialogLogout.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogLogout.create();
+        alertDialog.show();
     }
 }
