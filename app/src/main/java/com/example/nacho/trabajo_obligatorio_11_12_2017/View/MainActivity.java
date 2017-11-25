@@ -76,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*- Intent-*/
+
+        Intent i = getIntent();
+        String token = i.getStringExtra("token");
+        String nameUser = i.getStringExtra("nameUser");
+
+        Toast.makeText(MainActivity.this, "¡Bienvenido "+nameUser+"!", Toast.LENGTH_LONG).show();
+
         /*- Lista de ofertas -*/
         lstMenu = (ListView)findViewById(R.id.lstMenu);
 
@@ -84,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         service = new HttpConnection();
         new ListadoMenu().execute();
 
+
+        /*- Action Bar-*/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -101,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         setupNavigationDrawerContent(navigationView);
 
 
-        /*------On Click -----*/
+        /*------On Click en la lista menu -----*/
         lstMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

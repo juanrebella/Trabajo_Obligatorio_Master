@@ -66,13 +66,6 @@ public class Login extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
 
-        /*--- Nav Drawer -*/
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        if (navigationView != null) {
-            setupNavigationDrawerContent(navigationView);
-        }
-
-        setupNavigationDrawerContent(navigationView);
 
 
 
@@ -130,6 +123,9 @@ public class Login extends AppCompatActivity{
                         editor.commit();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         finish();
+                        intent.putExtra("token", token);
+                        intent.putExtra("userId", userId);
+                        intent.putExtra("nameUser", name);
                         startActivity(intent);
 
                     } else {
@@ -211,85 +207,6 @@ public class Login extends AppCompatActivity{
         });
     }
 
-    public void setupNavigationDrawerContent( NavigationView navigationView){
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected( MenuItem menuItem) {
-
-                        switch (menuItem.getItemId()) {
-                            case R.id.item_navigation_drawer_pasta:
-
-                                /*- Pasta -*/
-
-                                menuItem.setChecked(true);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                            case R.id.item_navigation_drawer_minutas:
-
-                                /*- Minutas -*/
-
-                                return true;
-
-                            case R.id.item_navigation_drawer_ensaladas:
-
-                                /*- Ensalada -*/
-                                menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_carneParrilla:
-                                /*- Parrilla -*/
-
-                                menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_mariscos:
-
-                                /*- Mariscos -*/
-
-                                menuItem.setChecked(true);
-
-                                Toast.makeText(Login.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_registrarse:
-
-                                /*- Registrarse -*/
-
-                                menuItem.setChecked(true);
-
-                                Intent intent = new Intent(Login.this, Registro.class);
-                                startActivity(intent);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                return true;
-
-                            case R.id.item_navigation_drawer_sesion:
-                                menuItem.setChecked(true);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                /*- iniciar sesión -*/
-
-                                Intent intentSesion = new Intent(Login.this, Login.class);
-                                finish();
-                                startActivity(intentSesion);
-                                return true;
-
-                            case R.id.item_navigation_drawer_salir:
-
-                                /*- Logout y quemar el token del ws-*/
-                                Logout();
-
-                        }
-                        return true;
-                    }
-                });
-    }
 
     private void Logout() {
         AlertDialog.Builder alertDialogLogout = new AlertDialog.Builder(this);
