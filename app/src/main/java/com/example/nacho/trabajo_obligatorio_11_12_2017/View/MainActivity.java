@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         /*- Intent-*/
 
         Intent i = getIntent();
-        String token = i.getStringExtra("token");
         String nameUser = i.getStringExtra("nameUser");
 
         Toast.makeText(MainActivity.this, "¡Bienvenido "+nameUser+"!", Toast.LENGTH_LONG).show();
