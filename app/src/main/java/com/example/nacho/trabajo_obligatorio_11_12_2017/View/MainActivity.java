@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     AdapterLista adapter;
     public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
     private ListView lstMenu;
-
+    private String token;
+    private boolean loggedIn;
+    private int userId;
 
             /*----------- Variables -------------*/
 
@@ -75,13 +77,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*- Intent-*/
-
-        Intent i = getIntent();
-        String nameUser = i.getStringExtra("nameUser");
-
-        Toast.makeText(MainActivity.this, "¡Bienvenido "+nameUser+"!", Toast.LENGTH_LONG).show();
 
         /*- Lista de ofertas -*/
         lstMenu = (ListView)findViewById(R.id.lstMenu);
@@ -108,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(navigationView);
+
+
+
 
 
         /*------On Click en la lista menu -----*/
@@ -234,6 +232,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Search.class);
                 startActivity(intent);
 
+            case R.id.carrito:
+
+                    /*-metodo carrito-*/
+                //carritoSession();
+
+                Intent intentCarrito = new Intent(MainActivity.this, Carrito.class);
+                startActivity(intentCarrito);
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -347,5 +353,26 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = alertDialogLogout.create();
         alertDialog.show();
+    }
+
+    private void carritoSession(){
+        SharedPreferences sharedPreferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        loggedIn = sharedPreferences.getBoolean("loggedIn", false);
+        userId = sharedPreferences.getInt("userId", 0);
+
+
+        if (loggedIn != true) {
+            SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("loggedIn");
+            editor.remove("token");
+            editor.remove("iduser");
+            editor.remove("nameUser");
+            editor.commit();
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            finish();
+            startActivity(intent);
+        }
     }
 }

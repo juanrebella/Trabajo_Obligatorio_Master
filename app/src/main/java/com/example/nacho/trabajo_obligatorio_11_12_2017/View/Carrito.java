@@ -1,61 +1,74 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
+import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
-public class Search extends AppCompatActivity {
+import org.json.JSONArray;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+public class Carrito extends AppCompatActivity {
+
+         /*---Variables para AsyncTask-----*/
+
+    private ListView listViewData;
+    ProgressDialog progressDialog;
+
+    private String url = URL_Rest.urlListArticulos;
+
+    private JSONArray jsonArray;
+    private HttpConnection service;
+    private int status = 0;
 
 
+            /*----------- Variables -------------*/
+
+    Button lupaBuscar, carritoCompra, loginButton;
     ActionBar actionBar;
-    Toolbar toolbar;
     DrawerLayout drawerLayout;
+    TextView textView;
+    Toolbar toolbar;
 
-    EditText ingresarConsulta;
-    TextView textView, textSearch;
-    Button enviarConsulta;
+    private String idUserDeveloper= "1";
+    private String idresturante = "1";
+    public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
+    private ListView lstMenu;
+    public boolean statusCarrito = true;
+
+        @Override
+            protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_carrito);
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-        ingresarConsulta = (EditText)findViewById(R.id.editBuscar);
-        enviarConsulta = (Button)findViewById(R.id.btnBuscarSearch);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.hamburguesa);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        if (navigationView != null) {
-            setupNavigationDrawerContent(navigationView);
-        }
-
-        setupNavigationDrawerContent(navigationView);
     }
 
     @Override
@@ -75,6 +88,17 @@ public class Search extends AppCompatActivity {
                 //ABRIMOS EL DRAWER
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+
+            case R.id.buscar:
+                //Abrimos el buscador
+                Intent intent = new Intent(Carrito.this, Search.class);
+                startActivity(intent);
+
+            case R.id.carrito:
+
+                //Abrimos el carrito
+                Intent intentCarrito = new Intent(Carrito.this, Carrito.class);
+                startActivity(intentCarrito);
 
         }
         return super.onOptionsItemSelected(item);
@@ -122,7 +146,7 @@ public class Search extends AppCompatActivity {
 
                                 menuItem.setChecked(true);
 
-                                Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Carrito.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
 
@@ -132,7 +156,7 @@ public class Search extends AppCompatActivity {
 
                                 menuItem.setChecked(true);
 
-                                Intent intent = new Intent(Search.this, Registro.class);
+                                Intent intent = new Intent(Carrito.this, Registro.class);
                                 startActivity(intent);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
@@ -144,7 +168,7 @@ public class Search extends AppCompatActivity {
 
                                 /*- iniciar sesión -*/
 
-                                Intent intentSesion = new Intent(Search.this, Login.class);
+                                Intent intentSesion = new Intent(Carrito.this, Login.class);
                                 finish();
                                 startActivity(intentSesion);
                                 return true;
@@ -172,7 +196,7 @@ public class Search extends AppCompatActivity {
                 editor.remove("loggedIn");
                 editor.remove("token");
                 editor.commit();
-                Intent intent = new Intent(Search.this, Login.class);
+                Intent intent = new Intent(Carrito.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -188,6 +212,8 @@ public class Search extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogLogout.create();
         alertDialog.show();
     }
+
+
 
 }
 

@@ -20,10 +20,11 @@
             </intent-filter>
         </activity>
         <!-- <activity android:name=""> </activity> -->
-        <activity android:name=".View.Search"></activity>
-        <activity android:name=".View.Login"></activity>
-        <activity android:name=".View.Registro"></activity>
-        <activity android:name=".View.Mostrar_Detalle_Imagen"></activity>
+        <activity android:name=".View.Search" />
+        <activity android:name=".View.Login" />
+        <activity android:name=".View.Registro" />
+        <activity android:name=".View.Mostrar_Detalle_Imagen" />
+        <activity android:name=".View.Carrito"></activity>
     </application>
 
 </manifest>

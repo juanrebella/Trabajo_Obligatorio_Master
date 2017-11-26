@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/md_orange_100"
+    android:layout_width="match_parent"
+    android:paddingTop="5dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <com.github.snowdream.android.widget.SmartImageView
+            android:id="@+id/imageproduct"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:paddingStart="2dp"/>
+
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:gravity="center_vertical"
+            android:text=""
+            android:paddingLeft="2dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="8pt" />
+
+        <TextView
+            android:id="@+id/lblPrecio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text=""
+            android:paddingLeft="2dp"
+            android:textColor="@color/md_black_1000_75"
+            android:textSize="8pt" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/txtidTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        android:text="id"/>
+</LinearLayout>
+
