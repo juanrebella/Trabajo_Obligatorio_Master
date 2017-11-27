@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imgIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
+                android:layout_height="150dp"
                 android:src="@drawable/restaurant"
                 android:layout_gravity="center"
                 />

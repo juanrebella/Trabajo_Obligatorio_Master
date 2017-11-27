@@ -2,6 +2,7 @@ package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,6 +83,16 @@ public class  Registro extends AppCompatActivity {
 
             }
         });
+
+        yaEstaLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registro.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 

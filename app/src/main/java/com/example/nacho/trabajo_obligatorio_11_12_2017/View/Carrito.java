@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,12 +31,26 @@ import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws
 import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Carrito extends AppCompatActivity {
+
+
+    private String token;
+    private boolean loggedIn;
+    private int userId;
+
+    private JSONObject json;
+    private HttpConnection serviceupdate;
+    private String urledit = URL_Rest.urlupdate;
+    private String request;
+
 
          /*---Variables para AsyncTask-----*/
 
@@ -56,7 +71,9 @@ public class Carrito extends AppCompatActivity {
     DrawerLayout drawerLayout;
     TextView textView;
     Toolbar toolbar;
+    Button btnComprarCarrito;
 
+    AdapterLista adapter;
     private String idUserDeveloper= "1";
     private String idresturante = "1";
     public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
@@ -69,7 +86,32 @@ public class Carrito extends AppCompatActivity {
             setContentView(R.layout.activity_carrito);
 
 
-    }
+
+            lstMenu = (ListView)findViewById(R.id.lstMenu);
+            btnComprarCarrito = (Button)findViewById(R.id.btnComprarCarrito);
+            service = new HttpConnection();
+            new ListadoMenu().execute();
+
+            /*- Action Bar-*/
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            actionBar = getSupportActionBar();
+            actionBar.setHomeAsUpIndicator(R.drawable.hamburguesa);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+            drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+            if (navigationView != null) {
+                setupNavigationDrawerContent(navigationView);
+            }
+
+            setupNavigationDrawerContent(navigationView);
+
+
+
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,9 +138,6 @@ public class Carrito extends AppCompatActivity {
 
             case R.id.carrito:
 
-                //Abrimos el carrito
-                Intent intentCarrito = new Intent(Carrito.this, Carrito.class);
-                startActivity(intentCarrito);
 
         }
         return super.onOptionsItemSelected(item);
@@ -198,6 +237,7 @@ public class Carrito extends AppCompatActivity {
                 editor.commit();
                 Intent intent = new Intent(Carrito.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                finish();
                 startActivity(intent);
             }
         });
@@ -214,6 +254,91 @@ public class Carrito extends AppCompatActivity {
     }
 
 
+    public class ListadoMenu extends AsyncTask<Void, Void, JSONArray>{
 
+
+        String response = "";
+        HashMap<String, String> postDataParams;
+        //String urlparams = url + "title";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog=new ProgressDialog(Carrito.this);
+            progressDialog.setMessage("Buscando datos..");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+
+
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+
+            postDataParams = new HashMap<String, String>();
+            postDataParams.put("userId", idUserDeveloper);
+            postDataParams.put("typemeals", idresturante);
+
+            response = service.ServerDataHeader(url, postDataParams);
+
+            try {
+                JSONObject jsonResponse;
+                jsonResponse = new JSONObject(response);
+                status = jsonResponse.getInt("status");
+                jsonArray = jsonResponse.optJSONArray("response");
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return jsonArray;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+                if (status == 200) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+
+                            Listadatos_ws objDatos = new Listadatos_ws();
+
+                            int id;
+                            String name;
+                            String precio;
+                            String imagenes;
+
+
+                            JSONObject objet = jsonArray.getJSONObject(i);
+
+                            id = objet.getInt("id");
+                            name = objet.getString("name");
+                            precio = objet.getString("precio");
+                            imagenes = objet.getString("nameImage");
+
+                            objDatos.setId(id);
+                            objDatos.setNombre(name);
+                            objDatos.setPrecio(precio);
+                            objDatos.setImage(imagenes);
+
+                            lista.add(objDatos);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    adapter= new AdapterLista(Carrito.this,lista,R.layout.item_lista_comida);
+                    lstMenu.setAdapter(adapter);
+
+                }
+
+            }
+        }
+    }
 }
 

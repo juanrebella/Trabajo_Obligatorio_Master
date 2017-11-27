@@ -37,8 +37,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text=""
             android:paddingLeft="2dp"
+            android:text=""
             android:textColor="@color/md_black_1000_75"
             android:textSize="8pt" />
 

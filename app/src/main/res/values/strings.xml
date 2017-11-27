@@ -34,7 +34,7 @@
     <string name="inicio_sesion_en_registro">¿Ya está registrado?</string>
     <string name="log_in">Ingresar</string>
     <string name="RepPassword">Repetir contraseña</string>
-    <string name="confirmar_compra_carrito">Confirmar Compra</string>
+    <string name="confirmar_compra_carrito">Comprar</string>
 
 
 </resources>

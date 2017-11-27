@@ -227,19 +227,20 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
 
+            case R.id.carrito:
+
+                    /*-metodo carrito-*/
+                carritoSession();
+                return true;
+
+               /*Intent intentCarrito = new Intent(MainActivity.this, Carrito.class);
+                startActivity(intentCarrito);*/
+
             case R.id.buscar:
                 //Abrimos el buscador
                 Intent intent = new Intent(MainActivity.this, Search.class);
                 startActivity(intent);
-
-            case R.id.carrito:
-
-                    /*-metodo carrito-*/
-                //carritoSession();
-
-                Intent intentCarrito = new Intent(MainActivity.this, Carrito.class);
-                startActivity(intentCarrito);
-
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -338,8 +339,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.remove("loggedIn");
                 editor.remove("token");
                 editor.commit();
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                finish();
                 startActivity(intent);
             }
         });
@@ -371,7 +373,9 @@ public class MainActivity extends AppCompatActivity {
             editor.remove("nameUser");
             editor.commit();
             Intent intent = new Intent(MainActivity.this, Login.class);
-            finish();
+            startActivity(intent);
+        } else{
+            Intent intent = new Intent(MainActivity.this, Carrito.class);
             startActivity(intent);
         }
     }

@@ -86,25 +86,6 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
 
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-        loggedIn = sharedPreferences.getBoolean("loggedIn", false);
-        userId = sharedPreferences.getInt("userId", 0);
-
-
-        if (loggedIn != true) {
-            SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.remove("loggedIn");
-            editor.remove("token");
-            editor.remove("iduser");
-            editor.remove("nameUser");
-            editor.commit();
-            Intent intent = new Intent(Mostrar_Detalle_Imagen.this, Login.class);
-            finish();
-            startActivity(intent);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostrar__detalle__imagen);
 
@@ -125,7 +106,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
         }
 
         service = new HttpConnection();
-        new postEditar().execute();
+        new postMostrar().execute();
 
 
         buttonCompra.setOnClickListener(new View.OnClickListener() {
@@ -136,12 +117,12 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
                 detalleProduct = txtDescripcion.getText().toString();
 
                 serviceupdate = new HttpConnection();
-                new postUpdate().execute();
+                new postComprar().execute();
             }
         });
     }
 
-        public class postEditar extends AsyncTask<Void, Void, JSONArray> {
+        public class postMostrar extends AsyncTask<Void, Void, JSONArray> {
 
             String response = "";
             HashMap<String, String> postDataParams;
@@ -227,7 +208,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
 
         }
 
-        public class postUpdate extends AsyncTask<Void, Void, Void> {
+        public class postComprar extends AsyncTask<Void, Void, Void> {
 
             String response = "";
             HashMap<String, String> postDataParams;
@@ -280,7 +261,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), resultdata, Toast.LENGTH_LONG).show();
 
                     } else if (status == 900) {
-                        Toast.makeText(getApplicationContext(), "Error de validacion toekn", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Error de validacion token", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Error de token", Toast.LENGTH_LONG).show();
                     }
