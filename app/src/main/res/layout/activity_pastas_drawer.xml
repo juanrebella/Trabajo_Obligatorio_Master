@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/md_amber_100"
         android:layout_marginTop="@dimen/status_bar_margin_top">
 
         <android.support.v7.widget.Toolbar
@@ -48,24 +49,29 @@
             android:layout_height="68dp"
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
-            android:background="@color/md_amber_100"
-            android:text="Ofertas"
+            android:background="@color/md_cyan_100"
+            android:text="Pastas"
             android:textAlignment="center"
             android:textColor="@color/md_black_1000"
-            android:paddingTop="10dp"
             android:textSize="45sp"
             android:textStyle="bold" />
 
+
         <ListView
-            android:id="@+id/lstMenu"
+            android:id="@+id/lstPasta"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
         </ListView>
-
-
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txtSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text=""/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"

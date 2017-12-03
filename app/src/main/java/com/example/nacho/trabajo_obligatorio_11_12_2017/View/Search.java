@@ -150,15 +150,25 @@ public class Search extends AppCompatActivity {
 
                                 /*- Pasta -*/
 
+
                                     menuItem.setChecked(true);
                                     drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentPasta = new Intent(Search.this, PastasDrawer.class);
+                                    Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                    startActivity(intentPasta);
 
                                 case R.id.item_navigation_drawer_minutas:
 
                                 /*- Minutas -*/
+                                    menuItem.setChecked(true);
+                                    drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentMinutas = new Intent(Search.this, MinutasDrawer.class);
+                                    Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                    startActivity(intentMinutas);
 
                                     return true;
-
                                 case R.id.item_navigation_drawer_ensaladas:
 
                                 /*- Ensalada -*/

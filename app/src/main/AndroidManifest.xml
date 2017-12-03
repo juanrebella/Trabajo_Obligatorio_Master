@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".View.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,9 +23,12 @@
         <activity android:name=".View.Search" />
         <activity android:name=".View.Login" />
         <activity android:name=".View.Registro" />
+        <activity android:name=".View.MainActivity" />
         <activity android:name=".View.Mostrar_Detalle_Imagen" />
         <activity android:name=".View.Carrito" />
-        <activity android:name=".View.ResultadoSearch"></activity>
+        <activity android:name=".View.ResultadoSearch" />
+        <activity android:name=".View.PastasDrawer" />
+        <activity android:name=".View.MinutasDrawer"></activity>
     </application>
 
 </manifest>

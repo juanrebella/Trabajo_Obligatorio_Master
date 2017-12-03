@@ -257,12 +257,23 @@ public class MainActivity extends AppCompatActivity {
 
                                 /*- Pasta -*/
 
+
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intent = new Intent(MainActivity.this, PastasDrawer.class);
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
 
                             case R.id.item_navigation_drawer_minutas:
 
                                 /*- Minutas -*/
+                                menuItem.setChecked(true);
+                                drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intentMinutas = new Intent(MainActivity.this, MinutasDrawer.class);
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                startActivity(intentMinutas);
 
                                 return true;
 
@@ -299,8 +310,8 @@ public class MainActivity extends AppCompatActivity {
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intent = new Intent(MainActivity.this, Registro.class);
-                                startActivity(intent);
+                                Intent intentRegistro = new Intent(MainActivity.this, Registro.class);
+                                startActivity(intentRegistro);
 
                                 return true;
 

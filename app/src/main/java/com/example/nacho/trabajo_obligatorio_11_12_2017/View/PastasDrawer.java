@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,18 +36,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class Carrito extends AppCompatActivity {
-
-
-    private String token;
-    private boolean loggedIn;
-    private int userId;
-
-    private JSONObject json;
-    private HttpConnection serviceupdate;
-    private String request;
+public class PastasDrawer extends AppCompatActivity {
 
 
          /*---Variables para AsyncTask-----*/
@@ -56,12 +45,21 @@ public class Carrito extends AppCompatActivity {
     private ListView listViewData;
     ProgressDialog progressDialog;
 
-    private String url = URL_Rest.urlListArticulos;
+    private String url = URL_Rest.urlBuscarProducto;
 
     private JSONArray jsonArray;
     private HttpConnection service;
     private int status = 0;
 
+
+    /*-- Variables traidas del adaptador ---*/
+
+    AdapterLista adapter;
+    public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
+    private ListView lstPasta;
+    private String token;
+    private boolean loggedIn;
+    private int userId;
 
             /*----------- Variables -------------*/
 
@@ -70,199 +68,47 @@ public class Carrito extends AppCompatActivity {
     DrawerLayout drawerLayout;
     TextView textView;
     Toolbar toolbar;
-    Button btnComprarCarrito;
 
-    AdapterLista adapter;
     private String idUserDeveloper= "1";
-    private String idresturante = "1";
-    public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
-    private ListView lstMenu;
-    public boolean statusCarrito = true;
-
-        @Override
-            protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_carrito);
+    private String typemeals = "ravioles";
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pastas_drawer);
 
-            lstMenu = (ListView)findViewById(R.id.lstMenu);
-            btnComprarCarrito = (Button)findViewById(R.id.btnComprarCarrito);
-            service = new HttpConnection();
-            new ListadoMenu().execute();
+        /*- Lista de ofertas -*/
+        lstPasta = (ListView)findViewById(R.id.lstPasta);
 
-            /*- Action Bar-*/
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        /*- iniciamos servicio -*/
 
-            actionBar = getSupportActionBar();
-            actionBar.setHomeAsUpIndicator(R.drawable.hamburguesa);
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        service = new HttpConnection();
+        new ListadoPasta().execute();
 
-            drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-            if (navigationView != null) {
-                setupNavigationDrawerContent(navigationView);
-            }
+        /*- Action Bar-*/
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburguesa);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
+
+       NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
+
+        if (navigationView != null) {
             setupNavigationDrawerContent(navigationView);
-
-
-
         }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+        setupNavigationDrawerContent(navigationView);
 
-        //Inflamos el menú
 
-        getMenuInflater().inflate(R.menu.menu_icons, menu);
-
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //ABRIMOS EL DRAWER
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-
-            case R.id.buscar:
-                //Abrimos el buscador
-                Intent intent = new Intent(Carrito.this, Search.class);
-                startActivity(intent);
-
-            case R.id.carrito:
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void setupNavigationDrawerContent( NavigationView navigationView){
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected( MenuItem menuItem) {
-
-                        switch (menuItem.getItemId()) {
-                            case R.id.item_navigation_drawer_pasta:
-
-                                /*- Pasta -*/
-                                menuItem.setChecked(true);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                Intent intent = new Intent(Carrito.this, MainActivity.class);
-                                startActivity(intent);
-
-                            case R.id.item_navigation_drawer_minutas:
-
-
-                                /*- Minutas -*/
-                                menuItem.setChecked(true);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                Intent intentMinutas = new Intent(Carrito.this, MinutasDrawer.class);
-                                Toast.makeText(Carrito.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                startActivity(intentMinutas);
-
-                                return true;
-
-                            case R.id.item_navigation_drawer_ensaladas:
-
-                                /*- Ensalada -*/
-                                menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_carneParrilla:
-                                /*- Parrilla -*/
-
-                                menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_mariscos:
-
-                                /*- Mariscos -*/
-
-                                menuItem.setChecked(true);
-
-                                Toast.makeText(Carrito.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
-
-                            case R.id.item_navigation_drawer_registrarse:
-
-                                /*- Registrarse -*/
-
-                                menuItem.setChecked(true);
-
-                                Intent intentRegistrar = new Intent(Carrito.this, Registro.class);
-                                startActivity(intentRegistrar);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                return true;
-
-                            case R.id.item_navigation_drawer_sesion:
-                                menuItem.setChecked(true);
-                                drawerLayout.closeDrawer(GravityCompat.START);
-
-                                /*- iniciar sesión -*/
-
-                                Intent intentSesion = new Intent(Carrito.this, Login.class);
-                                finish();
-                                startActivity(intentSesion);
-                                return true;
-
-                            case R.id.item_navigation_drawer_salir:
-
-                                /*- Logout y quemar el token del ws-*/
-                                Logout();
-
-                        }
-                        return true;
-                    }
-                });
-    }
-
-    private void Logout() {
-        AlertDialog.Builder alertDialogLogout = new AlertDialog.Builder(this);
-        alertDialogLogout.setMessage("Desea salir de la aplicacion");
-        alertDialogLogout.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("loggedIn");
-                editor.remove("token");
-                editor.commit();
-                Intent intent = new Intent(Carrito.this, Login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                finish();
-                startActivity(intent);
-            }
-        });
-
-        alertDialogLogout.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog alertDialog = alertDialogLogout.create();
-        alertDialog.show();
-    }
-
-
-    public class ListadoMenu extends AsyncTask<Void, Void, JSONArray>{
+    public class ListadoPasta extends AsyncTask<Void, Void, JSONArray> {
 
 
         String response = "";
@@ -272,7 +118,7 @@ public class Carrito extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog=new ProgressDialog(Carrito.this);
+            progressDialog=new ProgressDialog(PastasDrawer.this);
             progressDialog.setMessage("Buscando datos..");
             progressDialog.setCancelable(false);
             progressDialog.show();
@@ -285,7 +131,7 @@ public class Carrito extends AppCompatActivity {
 
             postDataParams = new HashMap<String, String>();
             postDataParams.put("userId", idUserDeveloper);
-            postDataParams.put("typemeals", idresturante);
+            postDataParams.put("search", typemeals);
 
             response = service.ServerDataHeader(url, postDataParams);
 
@@ -319,6 +165,7 @@ public class Carrito extends AppCompatActivity {
                             String precio;
                             String imagenes;
 
+                            /* */
 
                             JSONObject objet = jsonArray.getJSONObject(i);
 
@@ -340,13 +187,187 @@ public class Carrito extends AppCompatActivity {
                     }
 
 
-                    adapter= new AdapterLista(Carrito.this,lista,R.layout.item_lista_comida);
-                    lstMenu.setAdapter(adapter);
+                    adapter= new AdapterLista(PastasDrawer.this,lista,R.layout.item_lista_comida);
+                    lstPasta.setAdapter(adapter);
 
                 }
 
             }
         }
     }
-}
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        //Inflamos el menú
+
+        getMenuInflater().inflate(R.menu.menu_icons, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //ABRIMOS EL DRAWER
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+
+            case R.id.carrito:
+
+                    /*-metodo carrito-*/
+                carritoSession();
+                return true;
+
+               /*Intent intentCarrito = new Intent(MainActivity.this, Carrito.class);
+                startActivity(intentCarrito);*/
+
+            case R.id.buscar:
+                //Abrimos el buscador
+                Intent intent = new Intent(PastasDrawer.this, Search.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void setupNavigationDrawerContent( NavigationView navigationView){
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected( MenuItem menuItem) {
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.item_navigation_drawer_pasta:
+
+                                /*- Pasta -*/
+
+
+                                menuItem.setChecked(true);
+                                drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intent = new Intent(PastasDrawer.this, MainActivity.class);
+                                startActivity(intent);
+
+                            case R.id.item_navigation_drawer_minutas:
+
+                                /*- Minutas -*/
+
+                                return true;
+
+                            case R.id.item_navigation_drawer_ensaladas:
+
+                                /*- Ensalada -*/
+                                menuItem.setChecked(true);
+                                textView.setText(menuItem.getTitle());
+                                drawerLayout.closeDrawer(GravityCompat.START);
+                                return true;
+
+                            case R.id.item_navigation_drawer_carneParrilla:
+                                /*- Parrilla -*/
+
+                                menuItem.setChecked(true);
+                                textView.setText(menuItem.getTitle());
+                                drawerLayout.closeDrawer(GravityCompat.START);
+                                return true;
+
+                            case R.id.item_navigation_drawer_mariscos:
+
+                                /*- Mariscos -*/
+
+                                menuItem.setChecked(true);
+
+                                Toast.makeText(PastasDrawer.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                drawerLayout.closeDrawer(GravityCompat.START);
+                                return true;
+
+                            case R.id.item_navigation_drawer_registrarse:
+
+                                /*- Registrarse -*/
+
+                                menuItem.setChecked(true);
+                                drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intentRegistro = new Intent(PastasDrawer.this, Registro.class);
+                                startActivity(intentRegistro);
+
+                                return true;
+
+                            case R.id.item_navigation_drawer_sesion:
+                                menuItem.setChecked(true);
+                                drawerLayout.closeDrawer(GravityCompat.START);
+
+                                /*- iniciar sesión -*/
+
+                                Intent intentSesion = new Intent(PastasDrawer.this, Login.class);
+                                startActivity(intentSesion);
+                                return true;
+
+                            case R.id.item_navigation_drawer_salir:
+
+                                /*- Logout y quemar el token del ws-*/
+                                menuItem.setChecked(true);
+                                Logout();
+
+                        }
+                        return true;
+                    }
+                });
+    }
+
+
+    private void Logout() {
+        AlertDialog.Builder alertDialogLogout = new AlertDialog.Builder(this);
+        alertDialogLogout.setMessage("Desea salir de la aplicacion");
+        alertDialogLogout.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("loggedIn");
+                editor.remove("token");
+                editor.commit();
+                Intent intent = new Intent(PastasDrawer.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        alertDialogLogout.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogLogout.create();
+        alertDialog.show();
+    }
+
+    private void carritoSession(){
+        SharedPreferences sharedPreferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        loggedIn = sharedPreferences.getBoolean("loggedIn", false);
+        userId = sharedPreferences.getInt("userId", 0);
+
+
+        if (loggedIn != true) {
+            SharedPreferences preferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("loggedIn");
+            editor.remove("token");
+            editor.remove("iduser");
+            editor.remove("nameUser");
+            editor.commit();
+            Intent intent = new Intent(PastasDrawer.this, Login.class);
+            startActivity(intent);
+        } else{
+            Intent intent = new Intent(PastasDrawer.this, Carrito.class);
+            startActivity(intent);
+        }
+    }
+}
