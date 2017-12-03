@@ -12,9 +12,11 @@ public class URL_Rest {
 
         /*----------métodos ------------*/
         public static final String urlListArticulos = urlApi + "listadoArticulos";
-        public static final String urlInsertArticulo = urlApi + "insertarArticulos";
-        public static final String urlupdate = urlApi + "actualizarArticulos";
         public static final String urlEditPruducto = urlApi + "edit";
+        public static final String urlBuscarProducto = urlApi + "buscar";
+        public static final String urlOfertas = urlApi + "ofertas";
+        public static final String urlDetalle = urlApi + "detalle";
+
 
         public static final String urlLogin = urlApi + "login";
         public static final String urlRegistrarUsuario = urlApi + "registrarUsuarios";
@@ -22,7 +24,6 @@ public class URL_Rest {
         /*--- Imágenes ------*/
 
         public static  final String urlImage ="http://45.55.202.30/upload/productos/";
-
 
     }
 

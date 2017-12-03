@@ -24,7 +24,8 @@
         <activity android:name=".View.Login" />
         <activity android:name=".View.Registro" />
         <activity android:name=".View.Mostrar_Detalle_Imagen" />
-        <activity android:name=".View.Carrito"></activity>
+        <activity android:name=".View.Carrito" />
+        <activity android:name=".View.ResultadoSearch"></activity>
     </application>
 
 </manifest>

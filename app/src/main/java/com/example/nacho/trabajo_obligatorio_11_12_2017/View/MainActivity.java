@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewData;
     ProgressDialog progressDialog;
 
-    private String url = URL_Rest.urlListArticulos;
+    private String url = URL_Rest.urlOfertas;
 
     private JSONArray jsonArray;
     private HttpConnection service;
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
             postDataParams = new HashMap<String, String>();
             postDataParams.put("userId", idUserDeveloper);
-            postDataParams.put("typemeals", idresturante);
+            postDataParams.put("", "");
 
             response = service.ServerDataHeader(url, postDataParams);
 

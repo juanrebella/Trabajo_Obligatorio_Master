@@ -54,8 +54,8 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
     private JSONObject json;
     private HttpConnection service;
     private HttpConnection serviceupdate;
-    private String url = URL_Rest.urlEditPruducto;
-    private String urledit = URL_Rest.urlupdate;
+    private String url = URL_Rest.urlDetalle;
+    //private String urledit = URL_Rest.urlupdate;
     private int status = 0;
     private String request;
     private JSONArray jsonArray;
@@ -76,8 +76,8 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
     String imageProduct;
 
 
-    private String idUserDeveloper = "1";
-    private String itemSelect;
+    private String idUserDeveloper;
+    public String itemSelect ;
 
     RequestQueue mRequestQueque;
 
@@ -108,7 +108,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
         service = new HttpConnection();
         new postMostrar().execute();
 
-
+/*
         buttonCompra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +119,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
                 serviceupdate = new HttpConnection();
                 new postComprar().execute();
             }
-        });
+        }); */
     }
 
         public class postMostrar extends AsyncTask<Void, Void, JSONArray> {
@@ -141,7 +141,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
             protected JSONArray doInBackground(Void... params) {
                 postDataParams = new HashMap<String, String>();
                 postDataParams.put("id", itemSelect);
-                postDataParams.put("userId", idUserDeveloper);
+
 
                 response = service.ServerDataHeader(url, postDataParams);
 
@@ -169,25 +169,24 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
 
                                 int id;
                                 String precio;
-                                String description;
-                                String nameImage;
+                                String nombre;
+                                String imagenes;
                                 String idResturante;
 
 
                                 JSONObject objet = jsonArray.getJSONObject(i);
 
                                 id = objet.getInt("id");
+                                nombre = objet.getString("name");
                                 precio = objet.getString("precio");
-                                description = objet.getString("description");
-                                nameImage = objet.getString("nameImage");
-                                idResturante = objet.getString("idRestaurante");
+                                imagenes = objet.getString("nameImage");
+
 
 
                                 idProducto = Integer.toString(id);
-                                restaurant = idResturante;
                                 precioProduct = precio;
-                                detalleProduct = description;
-                                imageProduct = nameImage;
+                                detalleProduct = nombre;
+                                imageProduct = imagenes;
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -208,7 +207,7 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
 
         }
 
-        public class postComprar extends AsyncTask<Void, Void, Void> {
+    /*    public class postComprar extends AsyncTask<Void, Void, Void> {
 
             String response = "";
             HashMap<String, String> postDataParams;
@@ -269,6 +268,6 @@ public class Mostrar_Detalle_Imagen extends AppCompatActivity {
                 }
             }
 
-        }
+        }*/
     }
 

@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/md_orange_100"
+    android:background="@color/md_cyan_100"
     android:layout_width="match_parent"
     android:paddingTop="5dp"
     android:layout_height="wrap_content">
@@ -18,7 +18,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
-            android:paddingStart="2dp"/>
+            android:paddingStart="2dp" />
 
         <TextView
             android:id="@+id/lblNombre"
@@ -53,4 +53,3 @@
 
         android:text="iD"/>
 </LinearLayout>
-

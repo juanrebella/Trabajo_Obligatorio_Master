@@ -48,7 +48,6 @@ public class Carrito extends AppCompatActivity {
 
     private JSONObject json;
     private HttpConnection serviceupdate;
-    private String urledit = URL_Rest.urlupdate;
     private String request;
 
 
