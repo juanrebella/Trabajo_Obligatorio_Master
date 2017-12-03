@@ -68,6 +68,7 @@ public class ResultadoSearch extends AppCompatActivity {
     String itemSearch;
     private String idUserDeveloper= "1";
     String busqueda;
+    //Textview txtSearch;
     //String [] searchNumber = {"ravioles", "fideos", "panchos", "carne", "parrilla", "mariscos", "tuco"};
     //private String search = "1";
 
@@ -75,6 +76,9 @@ public class ResultadoSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_search);
+
+        Intent i = getIntent();
+        busqueda = i.getStringExtra("busqueda");
 
         /*- Lista de busqueda -*/
         lstSearch = (ListView)findViewById(R.id.lstSearch);
@@ -103,14 +107,8 @@ public class ResultadoSearch extends AppCompatActivity {
         setupNavigationDrawerContent(navigationView);
 
 
-        Bundle params = getIntent().getExtras();
-        if (params != null) {
-            itemSearch = params.getString("id");
-            busqueda = params.getString("busqueda");
-        } else {
-            Toast.makeText(getApplicationContext(), "Datos Incorrectos",
-                    Toast.LENGTH_LONG).show();
-        }
+
+
 
     }
 

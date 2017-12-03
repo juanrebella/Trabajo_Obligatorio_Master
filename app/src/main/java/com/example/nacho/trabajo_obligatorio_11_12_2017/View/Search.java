@@ -75,8 +75,7 @@ public class Search extends AppCompatActivity {
     String detalleProduct;
     String imageProduct;
     String busqueda;
-    private int itemSearch;
-    public String consulta;
+    public String itemSearch;
 
 
     @Override
@@ -102,13 +101,15 @@ public class Search extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(navigationView);
+
+
         enviarConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 //String itemSelect= ((TextView)view.findViewById(R.id.txtidTitle)).getText().toString();
+                itemSearch = ingresarConsulta.getText().toString();
                 Intent intent= new Intent(Search.this , ResultadoSearch.class);
-                intent.putExtra("id", itemSearch);
-                intent.putExtra("busqueda", consulta);
+                intent.putExtra("busqueda", itemSearch);
                 startActivity(intent);
             }
         });
