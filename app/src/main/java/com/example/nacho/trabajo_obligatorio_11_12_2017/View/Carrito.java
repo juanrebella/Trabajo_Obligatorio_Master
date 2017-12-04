@@ -151,12 +151,16 @@ public class Carrito extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.item_navigation_drawer_pasta:
 
-                                /*- Pasta -*/
+                              /*- Pasta -*/
+
+
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intent = new Intent(Carrito.this, MainActivity.class);
+                                Intent intent = new Intent(Carrito.this, PastasDrawer.class);
+                                finish();
                                 startActivity(intent);
+                                 return true;
 
                             case R.id.item_navigation_drawer_minutas:
 
@@ -166,7 +170,7 @@ public class Carrito extends AppCompatActivity {
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                                 Intent intentMinutas = new Intent(Carrito.this, MinutasDrawer.class);
-                                Toast.makeText(Carrito.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                finish();
                                 startActivity(intentMinutas);
 
                                 return true;
@@ -204,6 +208,7 @@ public class Carrito extends AppCompatActivity {
                                 menuItem.setChecked(true);
 
                                 Intent intentRegistrar = new Intent(Carrito.this, Registro.class);
+                                finish();
                                 startActivity(intentRegistrar);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 

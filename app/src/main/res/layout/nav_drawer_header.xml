@@ -12,6 +12,7 @@
         android:background="@drawable/img_navdrawer_header" />
 
     <ImageView
+        android:id="@+id/imgMain"
         android:layout_marginTop="@dimen/navigation_drawer_header_margin"
         android:layout_width="160dp"
         android:layout_height="150dp"

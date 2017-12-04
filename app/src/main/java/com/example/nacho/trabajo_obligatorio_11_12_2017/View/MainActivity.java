@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     DrawerLayout drawerLayout;
     TextView textView;
+    ImageView Main;
     Toolbar toolbar;
 
     private String idUserDeveloper= "1";
@@ -103,10 +105,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupNavigationDrawerContent(navigationView);
-
-
-
-
 
         /*------On Click en la lista menu -----*/
         lstMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -257,13 +255,14 @@ public class MainActivity extends AppCompatActivity {
 
                                 /*- Pasta -*/
 
-
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intent = new Intent(MainActivity.this, PastasDrawer.class);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                startActivity(intent);
+                                Intent intentPasta = new Intent(MainActivity.this, PastasDrawer.class);
+                                finish();
+                                startActivity(intentPasta);
+
+                                return true;
 
                             case R.id.item_navigation_drawer_minutas:
 
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
                                 Intent intentMinutas = new Intent(MainActivity.this, MinutasDrawer.class);
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                finish();
                                 startActivity(intentMinutas);
 
                                 return true;

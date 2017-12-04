@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -248,12 +249,22 @@ public class PastasDrawer extends AppCompatActivity {
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intent = new Intent(PastasDrawer.this, MainActivity.class);
+                                Intent intent = new Intent(PastasDrawer.this, PastasDrawer.class);
+                                finish();
                                 startActivity(intent);
+
+                                return true;
 
                             case R.id.item_navigation_drawer_minutas:
 
                                 /*- Minutas -*/
+
+                                menuItem.setChecked(true);
+                                drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intentMinutas = new Intent(PastasDrawer.this, MinutasDrawer.class);
+                                finish();
+                                startActivity(intentMinutas);
 
                                 return true;
 
