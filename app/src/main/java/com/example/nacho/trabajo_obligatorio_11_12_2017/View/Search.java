@@ -154,45 +154,62 @@ public class Search extends AppCompatActivity {
                                     menuItem.setChecked(true);
                                     drawerLayout.closeDrawer(GravityCompat.START);
 
-                                    Intent intentPasta = new Intent(Search.this, PastasDrawer.class);
-                                    Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-                                    startActivity(intentPasta);
+                                    Intent intent = new Intent(Search.this, PastasDrawer.class);
+                                    finish();
+                                    startActivity(intent);
+
+                                    return true;
 
                                 case R.id.item_navigation_drawer_minutas:
 
                                 /*- Minutas -*/
+
                                     menuItem.setChecked(true);
                                     drawerLayout.closeDrawer(GravityCompat.START);
 
                                     Intent intentMinutas = new Intent(Search.this, MinutasDrawer.class);
-                                    Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                    finish();
                                     startActivity(intentMinutas);
 
                                     return true;
+
                                 case R.id.item_navigation_drawer_ensaladas:
 
-                                /*- Ensalada -*/
+                               /*- Ensaladas -*/
                                     menuItem.setChecked(true);
-                                    textView.setText(menuItem.getTitle());
                                     drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentEnsaladas = new Intent(Search.this, EnsaladasDrawer.class);
+                                    finish();
+                                    startActivity(intentEnsaladas);
+
                                     return true;
 
                                 case R.id.item_navigation_drawer_carneParrilla:
+
                                 /*- Parrilla -*/
 
                                     menuItem.setChecked(true);
-                                    textView.setText(menuItem.getTitle());
                                     drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentCarne = new Intent(Search.this, Carnes_Parrilla.class);
+                                    finish();
+                                    startActivity(intentCarne);
+
                                     return true;
 
                                 case R.id.item_navigation_drawer_mariscos:
 
-                                /*- Mariscos -*/
+                               /*- Mariscos -*/
+
 
                                     menuItem.setChecked(true);
-
-                                    Toast.makeText(Search.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                     drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentMariscos = new Intent(Search.this, Del_Mar.class);
+                                    finish();
+                                    startActivity(intentMariscos);
+
                                     return true;
 
                                 case R.id.item_navigation_drawer_registrarse:
@@ -200,10 +217,10 @@ public class Search extends AppCompatActivity {
                                 /*- Registrarse -*/
 
                                     menuItem.setChecked(true);
-
-                                    Intent intent = new Intent(Search.this, Registro.class);
-                                    startActivity(intent);
                                     drawerLayout.closeDrawer(GravityCompat.START);
+
+                                    Intent intentRegistro = new Intent(Search.this, Registro.class);
+                                    startActivity(intentRegistro);
 
                                     return true;
 
@@ -214,13 +231,13 @@ public class Search extends AppCompatActivity {
                                 /*- iniciar sesión -*/
 
                                     Intent intentSesion = new Intent(Search.this, Login.class);
-                                    finish();
                                     startActivity(intentSesion);
                                     return true;
 
                                 case R.id.item_navigation_drawer_salir:
 
                                 /*- Logout y quemar el token del ws-*/
+                                    menuItem.setChecked(true);
                                     Logout();
 
                             }

@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
             /*----------- Variables -------------*/
 
-    Button lupaBuscar, carritoCompra, loginButton;
     ActionBar actionBar;
     DrawerLayout drawerLayout;
     TextView textView;
@@ -279,17 +278,26 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.item_navigation_drawer_ensaladas:
 
                                 /*- Ensalada -*/
+
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intentEnsalada = new Intent(MainActivity.this, EnsaladasDrawer.class);
+                                finish();
+                                startActivity(intentEnsalada);
+
                                 return true;
 
                             case R.id.item_navigation_drawer_carneParrilla:
                                 /*- Parrilla -*/
 
                                 menuItem.setChecked(true);
-                                textView.setText(menuItem.getTitle());
                                 drawerLayout.closeDrawer(GravityCompat.START);
+
+                                Intent intentParrilla = new Intent(MainActivity.this, Carnes_Parrilla.class);
+                                finish();
+                                startActivity(intentParrilla);
+
                                 return true;
 
                             case R.id.item_navigation_drawer_mariscos:
@@ -297,11 +305,13 @@ public class MainActivity extends AppCompatActivity {
                                 /*- Mariscos -*/
 
                                 menuItem.setChecked(true);
-
-                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;
 
+                                Intent intentMariscos = new Intent(MainActivity.this, Del_Mar.class);
+                                finish();
+                                startActivity(intentMariscos);
+
+                                return true;
                             case R.id.item_navigation_drawer_registrarse:
 
                                 /*- Registrarse -*/
