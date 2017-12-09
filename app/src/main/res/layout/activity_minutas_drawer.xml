@@ -48,10 +48,10 @@
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:layout_gravity="center"
-            android:padding="10dp"
             android:layout_marginTop="0dp"
-            android:background="@color/md_amber_300"
-            android:text="@string/pastas_drawer"
+            android:padding="10dp"
+            android:background="@color/md_deep_orange_400"
+            android:text="Minutas"
             android:textAlignment="center"
             android:textColor="@color/md_black_1000"
             android:textSize="45sp"
@@ -59,7 +59,7 @@
 
 
         <ListView
-            android:id="@+id/lstPasta"
+            android:id="@+id/lstMinutas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dp">

@@ -35,6 +35,10 @@
     <string name="log_in">Ingresar</string>
     <string name="RepPassword">Repetir contraseña</string>
     <string name="confirmar_compra_carrito">Comprar</string>
+    <string name="pastas_drawer">Pastas</string>
+    <string name="ensaladas_drawer">Ensaladas</string>
+    <string name="parrilla_drawer">Parrilla</string>
+    <string name="del_mar_drawer">Del Mar</string>
 
 
 </resources>

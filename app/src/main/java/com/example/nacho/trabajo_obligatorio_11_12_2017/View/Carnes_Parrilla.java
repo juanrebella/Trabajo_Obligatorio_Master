@@ -1,49 +1,48 @@
 package com.example.nacho.trabajo_obligatorio_11_12_2017.View;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.app.AlertDialog;
+        import android.app.ProgressDialog;
+        import android.content.Context;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.SharedPreferences;
+        import android.os.AsyncTask;
+        import android.support.design.widget.NavigationView;
+        import android.support.v4.view.GravityCompat;
+        import android.support.v4.widget.DrawerLayout;
+        import android.support.v7.app.ActionBar;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.Toolbar;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.Button;
+        import android.widget.ListView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
-import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
+        import com.example.nacho.trabajo_obligatorio_11_12_2017.Adapter.AdapterLista;
+        import com.example.nacho.trabajo_obligatorio_11_12_2017.Config.URL_Rest;
+        import com.example.nacho.trabajo_obligatorio_11_12_2017.Model.HttpConnection;
+        import com.example.nacho.trabajo_obligatorio_11_12_2017.Properties.Listadatos_ws;
+        import com.example.nacho.trabajo_obligatorio_11_12_2017.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+        import java.util.HashMap;
+        import java.util.LinkedList;
+        import java.util.List;
 
-public class PastasDrawer extends AppCompatActivity {
+public class Carnes_Parrilla extends AppCompatActivity {
 
 
          /*---Variables para AsyncTask-----*/
 
-    private ListView listViewData;
+    private ListView lstCarnes;
     ProgressDialog progressDialog;
 
     private String url = URL_Rest.urlBuscarProducto;
@@ -57,7 +56,7 @@ public class PastasDrawer extends AppCompatActivity {
 
     AdapterLista adapter;
     public List<Listadatos_ws> lista = new LinkedList<Listadatos_ws>();
-    private ListView lstPasta;
+
     private String token;
     private boolean loggedIn;
     private int userId;
@@ -70,17 +69,19 @@ public class PastasDrawer extends AppCompatActivity {
     TextView textView;
     Toolbar toolbar;
 
-    private String idUserDeveloper= "1";
-    private String typemeals = "ravioles";
+    private String idUserDeveloper = "1";
+    private String typemeals = "2";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pastas_drawer);
+        setContentView(R.layout.activity_carnes__parrilla);
+
+
 
         /*- Lista de ofertas -*/
-        lstPasta = (ListView)findViewById(R.id.lstPasta);
+        lstCarnes = (ListView) findViewById(R.id.lstCarnes);
 
         /*- iniciamos servicio -*/
 
@@ -98,7 +99,7 @@ public class PastasDrawer extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
 
-       NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         if (navigationView != null) {
             setupNavigationDrawerContent(navigationView);
@@ -119,12 +120,11 @@ public class PastasDrawer extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog=new ProgressDialog(PastasDrawer.this);
+            progressDialog = new ProgressDialog(Carnes_Parrilla.this);
             progressDialog.setMessage("Buscando datos..");
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
-
 
 
         @Override
@@ -188,8 +188,8 @@ public class PastasDrawer extends AppCompatActivity {
                     }
 
 
-                    adapter= new AdapterLista(PastasDrawer.this,lista,R.layout.item_lista_comida);
-                    lstPasta.setAdapter(adapter);
+                    adapter = new AdapterLista(Carnes_Parrilla.this, lista, R.layout.item_lista_comida);
+                    lstCarnes.setAdapter(adapter);
 
                 }
 
@@ -226,7 +226,7 @@ public class PastasDrawer extends AppCompatActivity {
 
             case R.id.buscar:
                 //Abrimos el buscador
-                Intent intent = new Intent(PastasDrawer.this, Search.class);
+                Intent intent = new Intent(Carnes_Parrilla.this, Search.class);
                 startActivity(intent);
                 return true;
         }
@@ -234,11 +234,11 @@ public class PastasDrawer extends AppCompatActivity {
     }
 
 
-    public void setupNavigationDrawerContent( NavigationView navigationView){
+    public void setupNavigationDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected( MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                         switch (menuItem.getItemId()) {
                             case R.id.item_navigation_drawer_pasta:
@@ -249,7 +249,7 @@ public class PastasDrawer extends AppCompatActivity {
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intent = new Intent(PastasDrawer.this, PastasDrawer.class);
+                                Intent intent = new Intent(Carnes_Parrilla.this, PastasDrawer.class);
                                 finish();
                                 startActivity(intent);
 
@@ -258,11 +258,10 @@ public class PastasDrawer extends AppCompatActivity {
                             case R.id.item_navigation_drawer_minutas:
 
                                 /*- Minutas -*/
-
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intentMinutas = new Intent(PastasDrawer.this, MinutasDrawer.class);
+                                Intent intentMinutas = new Intent(Carnes_Parrilla.this, MinutasDrawer.class);
                                 finish();
                                 startActivity(intentMinutas);
 
@@ -270,38 +269,33 @@ public class PastasDrawer extends AppCompatActivity {
 
                             case R.id.item_navigation_drawer_ensaladas:
 
-                               /*- Ensaladas -*/
+                                 /*- Ensaladas -*/
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intentEnsaladas = new Intent(PastasDrawer.this, EnsaladasDrawer.class);
+                                Intent intentEnsaladas = new Intent(Carnes_Parrilla.this, MinutasDrawer.class);
                                 finish();
                                 startActivity(intentEnsaladas);
 
-                                return true;
-
                             case R.id.item_navigation_drawer_carneParrilla:
-
                                 /*- Parrilla -*/
 
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intentCarne = new Intent(PastasDrawer.this, Carnes_Parrilla.class);
+                                Intent intentParrilla = new Intent(Carnes_Parrilla.this, MinutasDrawer.class);
                                 finish();
-                                startActivity(intentCarne);
+                                startActivity(intentParrilla);
 
                                 return true;
-
                             case R.id.item_navigation_drawer_mariscos:
 
-                               /*- Mariscos -*/
-
+                                /*- Mariscos -*/
 
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intentMariscos = new Intent(PastasDrawer.this, Del_Mar.class);
+                                Intent intentMariscos = new Intent(Carnes_Parrilla.this, MinutasDrawer.class);
                                 finish();
                                 startActivity(intentMariscos);
 
@@ -314,7 +308,7 @@ public class PastasDrawer extends AppCompatActivity {
                                 menuItem.setChecked(true);
                                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                                Intent intentRegistro = new Intent(PastasDrawer.this, Registro.class);
+                                Intent intentRegistro = new Intent(Carnes_Parrilla.this, Registro.class);
                                 startActivity(intentRegistro);
 
                                 return true;
@@ -325,7 +319,7 @@ public class PastasDrawer extends AppCompatActivity {
 
                                 /*- iniciar sesión -*/
 
-                                Intent intentSesion = new Intent(PastasDrawer.this, Login.class);
+                                Intent intentSesion = new Intent(Carnes_Parrilla.this, Login.class);
                                 startActivity(intentSesion);
                                 return true;
 
@@ -354,7 +348,7 @@ public class PastasDrawer extends AppCompatActivity {
                 editor.remove("loggedIn");
                 editor.remove("token");
                 editor.commit();
-                Intent intent = new Intent(PastasDrawer.this, MainActivity.class);
+                Intent intent = new Intent(Carnes_Parrilla.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 finish();
                 startActivity(intent);
@@ -372,7 +366,7 @@ public class PastasDrawer extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void carritoSession(){
+    private void carritoSession() {
         SharedPreferences sharedPreferences = getSharedPreferences("2b507c0622169727e85e19cdc5dcea13", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
         loggedIn = sharedPreferences.getBoolean("loggedIn", false);
@@ -387,10 +381,10 @@ public class PastasDrawer extends AppCompatActivity {
             editor.remove("iduser");
             editor.remove("nameUser");
             editor.commit();
-            Intent intent = new Intent(PastasDrawer.this, Login.class);
+            Intent intent = new Intent(Carnes_Parrilla.this, Login.class);
             startActivity(intent);
-        } else{
-            Intent intent = new Intent(PastasDrawer.this, Carrito.class);
+        } else {
+            Intent intent = new Intent(Carnes_Parrilla.this, Carrito.class);
             startActivity(intent);
         }
     }

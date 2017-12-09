@@ -50,8 +50,8 @@
             android:layout_gravity="center"
             android:padding="10dp"
             android:layout_marginTop="0dp"
-            android:background="@color/md_amber_300"
-            android:text="@string/pastas_drawer"
+            android:background="@color/md_red_200"
+            android:text="@string/parrilla_drawer"
             android:textAlignment="center"
             android:textColor="@color/md_black_1000"
             android:textSize="45sp"
@@ -59,7 +59,7 @@
 
 
         <ListView
-            android:id="@+id/lstPasta"
+            android:id="@+id/lstCarnes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dp">
