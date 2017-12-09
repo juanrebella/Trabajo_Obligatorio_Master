@@ -107,6 +107,16 @@ public class Del_Mar extends AppCompatActivity {
 
         setupNavigationDrawerContent(navigationView);
 
+        lstDelMar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemSelect= ((TextView)view.findViewById(R.id.txtidTitle)).getText().toString();
+                Intent intent= new Intent(Del_Mar.this, Mostrar_Detalle_Imagen.class);
+                intent.putExtra("id", itemSelect);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

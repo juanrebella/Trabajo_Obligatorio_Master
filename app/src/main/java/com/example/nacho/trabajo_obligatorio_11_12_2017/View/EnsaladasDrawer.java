@@ -109,6 +109,17 @@ public class EnsaladasDrawer extends AppCompatActivity {
         setupNavigationDrawerContent(navigationView);
 
 
+        lstEnsalada.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemSelect= ((TextView)view.findViewById(R.id.txtidTitle)).getText().toString();
+                Intent intent= new Intent(EnsaladasDrawer.this, Mostrar_Detalle_Imagen.class);
+                intent.putExtra("id", itemSelect);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     public class ListadoPasta extends AsyncTask<Void, Void, JSONArray> {

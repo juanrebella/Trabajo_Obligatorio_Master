@@ -107,6 +107,16 @@ public class Carnes_Parrilla extends AppCompatActivity {
 
         setupNavigationDrawerContent(navigationView);
 
+        lstCarnes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemSelect= ((TextView)view.findViewById(R.id.txtidTitle)).getText().toString();
+                Intent intent= new Intent(Carnes_Parrilla.this, Mostrar_Detalle_Imagen.class);
+                intent.putExtra("id", itemSelect);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
